@@ -311,6 +311,31 @@ body {
     transform: translateY(-3px);
 }
 
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 1rem 2rem;
+    transition: background 0.3s ease;
+}
+
+/* Add for scrolled state */
+.header.header-scrolled {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+/* Focus style for accessibility */
+.featured-card:focus {
+    outline: 2px solid #4ecdc4;
+    outline-offset: 2px;
+    background: rgba(255,255,255,0.15);
+}
+
+/* ...existing code... */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
