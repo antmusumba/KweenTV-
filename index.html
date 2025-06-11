@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KweenTv - Your Entertainment Hub</title>
-
+    <meta name="description" content="Discover the latest movies, TV shows, music, and games all in one place.">
+    <meta property="og:title" content="KweenTv - Your Entertainment Hub">
+    <meta property="og:description" content="Discover the latest movies, TV shows, music, and games all in one place.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
+        <nav class="nav" aria-label="Main navigation">
             <div class="logo">KWEEN TV</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -23,7 +27,7 @@
     </header>
 
     <section class="hero" id="home">
-        <div class="floating-shapes">
+        <div class="floating-shapes" aria-hidden="true">
             <div class="shape"></div>
             <div class="shape"></div>
             <div class="shape"></div>
@@ -38,23 +42,23 @@
     <section class="content-section" id="featured">
         <h2 class="section-title">Featured Categories</h2>
         <div class="featured-grid">
-            <div class="featured-card" onclick="highlightCard(this)">
-                <span class="card-icon">🎬</span>
+            <div class="featured-card" tabindex="0" role="button" aria-pressed="false">
+                <span class="card-icon" aria-hidden="true">🎬</span>
                 <h3 class="card-title">Latest Movies</h3>
                 <p>Blockbuster releases, indie gems, and everything in between. Stay updated with the hottest films hitting theaters and streaming platforms.</p>
             </div>
-            <div class="featured-card" onclick="highlightCard(this)">
-                <span class="card-icon">📺</span>
+            <div class="featured-card" tabindex="0" role="button" aria-pressed="false">
+                <span class="card-icon" aria-hidden="true">📺</span>
                 <h3 class="card-title">TV Shows</h3>
                 <p>Binge-worthy series, reality TV, documentaries, and more. Never miss an episode of your favorite shows.</p>
             </div>
-            <div class="featured-card" onclick="highlightCard(this)">
-                <span class="card-icon">🎵</span>
+            <div class="featured-card" tabindex="0" role="button" aria-pressed="false">
+                <span class="card-icon" aria-hidden="true">🎵</span>
                 <h3 class="card-title">Music</h3>
                 <p>Chart-toppers, underground hits, and exclusive interviews with your favorite artists. Your soundtrack to life.</p>
             </div>
-            <div class="featured-card" onclick="highlightCard(this)">
-                <span class="card-icon">🎮</span>
+            <div class="featured-card" tabindex="0" role="button" aria-pressed="false">
+                <span class="card-icon" aria-hidden="true">🎮</span>
                 <h3 class="card-title">Gaming</h3>
                 <p>Latest game releases, reviews, esports coverage, and gaming culture. Level up your entertainment experience.</p>
             </div>
@@ -89,24 +93,23 @@
         <div class="newsletter">
             <h3>Stay in the Loop</h3>
             <p>Get the latest entertainment news and exclusive content delivered to your inbox</p>
-            <div class="newsletter-input">
-                <input type="email" placeholder="Enter your email" id="emailInput">
-                <button onclick="subscribe()">Subscribe</button>
-            </div>
+            <form class="newsletter-input" id="newsletterForm" autocomplete="off">
+                <input type="email" placeholder="Enter your email" id="emailInput" aria-label="Email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
         </div>
     </section>
 
     <footer class="footer">
         <div class="social-links">
-            <a href="#" onclick="socialInteraction('twitter')">🐦</a>
-            <a href="#" onclick="socialInteraction('instagram')">📷</a>
-            <a href="#" onclick="socialInteraction('youtube')">📺</a>
-            <a href="#" onclick="socialInteraction('facebook')">👥</a>
+            <a href="#" data-platform="twitter" aria-label="Twitter">🐦</a>
+            <a href="#" data-platform="instagram" aria-label="Instagram">📷</a>
+            <a href="#" data-platform="youtube" aria-label="YouTube">📺</a>
+            <a href="#" data-platform="facebook" aria-label="Facebook">👥</a>
         </div>
         <p>&copy; 2025 PULSE Entertainment. All rights reserved.</p>
         <p>Your ultimate destination for entertainment news and reviews</p>
     </footer>
-
 
     <script src="script.js"></script>
 </body>
