@@ -55,12 +55,22 @@ function highlightCard(card) {
 }
 
 // Newsletter subscription (form, better validation)
-document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+document.getElementById('newsletterForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const email = document.getElementById('emailInput').value;
     if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert('Thanks for subscribing! You\'ll receive the latest entertainment updates.');
-        document.getElementById('emailInput').value = '';
+        try {
+            const res = await fetch('http://localhost:8080/api/newsletter', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+            const data = await res.json();
+            alert(data.message);
+            document.getElementById('emailInput').value = '';
+        } catch (err) {
+            alert('There was an error. Please try again later.');
+        }
     } else {
         alert('Please enter a valid email address.');
     }
