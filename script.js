@@ -12,54 +12,74 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Header background change on scroll
-window.addEventListener('scroll', () => {
+// Header background change on scroll (with debounce and class toggle)
+function debounce(fn, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), wait);
+    };
+}
+window.addEventListener('scroll', debounce(() => {
     const header = document.querySelector('.header');
+    if (!header) return;
     if (window.scrollY > 100) {
-        header.style.background = 'rgba(0, 0, 0, 0.95)';
+        header.classList.add('header-scrolled');
     } else {
-        header.style.background = 'rgba(0, 0, 0, 0.9)';
+        header.classList.remove('header-scrolled');
     }
+}, 10));
+
+// Card interaction (keyboard accessible)
+document.querySelectorAll('.featured-card').forEach(card => {
+    card.addEventListener('click', () => highlightCard(card));
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            highlightCard(card);
+        }
+    });
 });
 
-// Card interaction
 function highlightCard(card) {
-    // Remove previous highlights
     document.querySelectorAll('.featured-card').forEach(c => {
         c.style.background = 'rgba(255, 255, 255, 0.1)';
+        c.setAttribute('aria-pressed', 'false');
     });
-    
-    // Highlight clicked card
     card.style.background = 'rgba(255, 255, 255, 0.2)';
-    
-    // Add pulse effect
+    card.setAttribute('aria-pressed', 'true');
     card.style.animation = 'pulse 0.6s ease';
     setTimeout(() => {
         card.style.animation = '';
     }, 600);
 }
 
-// Newsletter subscription
-function subscribe() {
+// Newsletter subscription (form, better validation)
+document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
     const email = document.getElementById('emailInput').value;
-    if (email && email.includes('@')) {
+    if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         alert('Thanks for subscribing! You\'ll receive the latest entertainment updates.');
         document.getElementById('emailInput').value = '';
     } else {
         alert('Please enter a valid email address.');
     }
-}
+});
 
-// Social media interaction
-function socialInteraction(platform) {
-    const messages = {
-        twitter: 'Following PULSE on Twitter!',
-        instagram: 'Check out PULSE on Instagram!',
-        youtube: 'Subscribe to PULSE on YouTube!',
-        facebook: 'Like PULSE on Facebook!'
-    };
-    alert(messages[platform]);
-}
+// Social media interaction (event delegation)
+document.querySelector('.social-links').addEventListener('click', function(e) {
+    if (e.target.matches('a[data-platform]')) {
+        e.preventDefault();
+        const platform = e.target.getAttribute('data-platform');
+        const messages = {
+            twitter: 'Following PULSE on Twitter!',
+            instagram: 'Check out PULSE on Instagram!',
+            youtube: 'Subscribe to PULSE on YouTube!',
+            facebook: 'Like PULSE on Facebook!'
+        };
+        alert(messages[platform]);
+    }
+});
 
 // Add pulse animation to CSS
 const style = document.createElement('style');
