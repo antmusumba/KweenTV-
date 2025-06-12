@@ -49,6 +49,7 @@ func main() {
         c.JSON(http.StatusOK, gin.H{"message": "Subscription successful!"})
     })
 
+    log.Println("successfully started at http://localhost:8080")
     router.Run(":8080")
 }
 
